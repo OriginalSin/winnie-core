@@ -356,7 +356,7 @@ cm.define('mobilePopups', ['mapLayoutHelper', 'mapActiveArea', 'layersMapper', '
     });
 
     var evBus = new(L.Class.extend({
-        includes: [L.Mixin.Events]
+        includes: L.Evented ? L.Evented.prototype : L.Mixin.Events
     }))();
 
     var popupIsActive = false;

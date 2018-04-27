@@ -252,7 +252,7 @@ cm.define('calendarWidgetContainer', [
 
         function createDesktopContainer() {
             var CalendarContainerControl = L.Control.extend({
-                includes: [nsGmx.GmxWidgetMixin, L.Mixin.Events],
+                includes: [nsGmx.GmxWidgetMixin, L.Evented ? L.Evented.prototype : L.Mixin.Events],
                 onAdd: function(map) {
                     var container = this._container = L.DomUtil.create('div', 'calendarContainer');
                     this._terminateMouseEvents();

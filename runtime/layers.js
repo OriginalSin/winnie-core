@@ -107,7 +107,7 @@ cm.define('layersClusters', ['layersHash', 'layersMapper', 'resetter', 'config',
     }
 
     var layersClustersManager = new(L.Class.extend({
-        includes: [L.Mixin.Events],
+        includes: L.Evented ? L.Evented.prototype : L.Mixin.Events,
         options: {
             layersHash: {},
             defaultClustersOptions: {

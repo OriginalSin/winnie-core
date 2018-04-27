@@ -1,9 +1,11 @@
-cm.define('layersTreeWidget', ['layersTreeWidgetContainer', 'layersTree', 'resetter', 'config', 'map'], function(cm) {
+cm.define('layersTreeWidget', ['layersTreeWidgetContainer', 'layersTree', 'resetter', 'config', 'map', 'layersHash'], function(cm) {
+//cm.define('layersTreeWidget', ['layersTreeWidgetContainer', 'layersTree', 'resetter', 'config', 'map'], function(cm) {
     var layersTreeWidgetContainer = cm.get('layersTreeWidgetContainer');
     var layersTree = cm.get('layersTree');
     var resetter = cm.get('resetter');
     var config = cm.get('config');
     var map = cm.get('map');
+    var layersHash = cm.get('layersHash');
 
     if (!layersTreeWidgetContainer || !layersTree) {
         return null;
@@ -17,6 +19,20 @@ cm.define('layersTreeWidget', ['layersTreeWidgetContainer', 'layersTree', 'reset
 
     layersTreeWidget.on('centerLayer', function(model) {
         map.fitBounds(model.getLatLngBounds());
+    });
+
+    layersTreeWidget.on('eyeButtonClick', function(layerID, styleNum, disable) {
+        var it = layersHash[layerID],
+			styles = it.getStyles(),
+			st = styles[styleNum];
+
+		if (disable) {
+			st._MinZoom = st.MinZoom;
+			st.MinZoom = 25;
+		} else {
+			st.MinZoom = st._MinZoom;
+		}
+		it.setStyles(styles);
     });
 
     resetter.on('reset', function() {

@@ -85,7 +85,7 @@ cm.define('config', [], function(cm, cb) {
 
 cm.define('resetter', [], function(cm) {
     return new(L.Class.extend({
-        includes: [L.Mixin.Events],
+        includes: L.Evented ? L.Evented.prototype : L.Mixin.Events,
         initialize: function() {},
         reset: function() {
             this.fire('reset');
