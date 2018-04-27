@@ -18,7 +18,10 @@ cm.define('layersTreeWidget', ['layersTreeWidgetContainer', 'layersTree', 'reset
     }));
 
     layersTreeWidget.on('centerLayer', function(model) {
-        map.fitBounds(model.getLatLngBounds());
+        var lbounds = model.getLatLngBounds();
+		if (lbounds) {
+			map.fitBounds(lbounds);
+		}
     });
 
     layersTreeWidget.on('eyeButtonClick', function(layerID, styleNum, disable) {

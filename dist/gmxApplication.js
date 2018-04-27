@@ -1,4 +1,4 @@
-var nsGmx = nsGmx || {};
+var nsGmx = window.nsGmx = window.nsGmx || {};
 
 nsGmx.PagingViewMixin = {
     _getEl: function() {
@@ -56,7 +56,7 @@ nsGmx.PagingViewMixin = {
 
 nsGmx.PagingView = Backbone.View.extend(nsGmx.PagingViewMixin);
 
-var nsGmx = nsGmx || {};
+var nsGmx = window.nsGmx = window.nsGmx || {};
 
 nsGmx.FullscreenControlMixin = {
     onAdd: function(map) {
@@ -79,7 +79,7 @@ nsGmx.FullscreenControlMixin = {
     }
 }
 
-var nsGmx = nsGmx || {};
+var nsGmx = window.nsGmx = window.nsGmx || {};
 
 nsGmx.FullscreenPagingPaneControl = L.Control.extend({
     includes: [nsGmx.PagingViewMixin, nsGmx.FullscreenControlMixin, L.Evented ? L.Evented.prototype : L.Mixin.Events],
@@ -105,8 +105,7 @@ nsGmx.FullscreenPagingPaneControl = L.Control.extend({
     }
 });
 
-var nsGmx = nsGmx || {};
-var nsGmx = nsGmx || {};
+var nsGmx = window.nsGmx = window.nsGmx || {};
 
 nsGmx.IconButtonWidget = Backbone.View.extend({
     events: {
@@ -183,7 +182,7 @@ nsGmx.MobileButtonsPaneControl = L.Control.extend({
     }
 });
 
-var nsGmx = nsGmx || {};
+var nsGmx = window.nsGmx = window.nsGmx || {};
 
 // Creating gmx layers tree from config:
 // 1. Preload Vector gmx layers
@@ -348,7 +347,7 @@ var nsGmx = nsGmx || {};
     };
 }();
 
-var nsGmx = nsGmx || {};
+var nsGmx = window.nsGmx = window.nsGmx || {};
 
 nsGmx.createGmxApplication = function(container, applicationConfig) {
     var ComponentsManager = window.cm.ComponentsManager;
@@ -1736,7 +1735,10 @@ cm.define('layersTreeWidget', ['layersTreeWidgetContainer', 'layersTree', 'reset
     }));
 
     layersTreeWidget.on('centerLayer', function(model) {
-        map.fitBounds(model.getLatLngBounds());
+        var lbounds = model.getLatLngBounds();
+		if (lbounds) {
+			map.fitBounds(lbounds);
+		}
     });
 
     layersTreeWidget.on('eyeButtonClick', function(layerID, styleNum, disable) {
